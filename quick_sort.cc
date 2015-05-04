@@ -17,8 +17,8 @@ using namespace std;
 
 void arr_init(int arr[],int len);
 void arr_show(int arr[],int len);
-void quick_sort(int arr[],int begin,int end);
 void swap(int* a,int* b);
+void quick_sort(int arr[],int begin,int end);
 
 int main()
 {
