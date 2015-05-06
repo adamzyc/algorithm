@@ -44,7 +44,7 @@ int lcs_length(int a[10][10],int b[10][10],const char* str1,const char* str2)
     int len2 = strlen(str2);
     int i,j;
     for(int p = 0;p<10;++p)
-        for(int q = 0;q< 10 ;++q)
+        for(int q = 0;q< 10 ;q++)
             a[p][q] = 0;
     for(i=1;i<len1+1;++i)
     {
