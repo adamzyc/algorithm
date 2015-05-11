@@ -1,0 +1,106 @@
+set guifont=Monaco
+""set foldenable      " 允许折叠  
+""set foldmethod=manual   " 手动折叠 
+colorscheme luna
+set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+set termencoding=utf-8
+set encoding=utf-8
+set fileencodings=ucs-bom,utf-8,cp936
+set fileencoding=utf-8
+
+
+"""""新文件标题""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"新建.c,.h,.sh,.java文件，自动插入文件头 
+autocmd BufNewFile *.cc,*.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+        call setline(1,"\#########################################################################") 
+        call append(line("."), "\# File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: 周雨晨") 
+        call append(line(".")+2, "\# mail: 15917836@qq.com") 
+        call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+        call append(line(".")+4, "\#########################################################################") 
+        call append(line(".")+5, "\#!/bin/bash") 
+        call append(line(".")+6, "") 
+    else 
+        call setline(1, "/*************************************************************************") 
+        call append(line("."), " > File Name: ".expand("%")) 
+        call append(line(".")+1, "\# Author: 周雨晨") 
+        call append(line(".")+2, "\# mail: 15917836@qq.com") 
+        call append(line(".")+3, " > Created Time: ".strftime("%c")) 
+        call append(line(".")+4, " ************************************************************************/") 
+        call append(line(".")+5, "")
+    endif
+    if &filetype == 'cpp'
+        call append(line(".")+6, "#include <iostream>")
+        call append(line(".")+7, "")
+    endif
+    if &filetype == 'cc'
+        call append(line(".")+6, "#include <iostream>")
+        call append(line(".")+7, "")
+    endif
+    if &filetype == 'c'
+        call append(line(".")+6, "#include <stdio.h>")
+        call append(line(".")+7, "")
+    endif
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
+endfunc 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+""""""""" Settings of taglist""""""""""""""
+" increase the width of the taglist window
+let Tlist_WinWidth=10
+" automatically open the taglist window 
+let Tlist_Auto_Open=0
+" exit wim when only the taglist window exist
+let Tlist_Exit_OnlyWindow=1
+" open tags with single click
+let Tlist_Use_SingleClick=1
+" close tag folds for inactive buffers
+let Tlist_File_Fold_Auto_Close=1
+" show the fold indicator column in the taglist window 
+let Tlist_Enable_Fold_Column=1
+" Automatically update the taglist to include newly edited files
+let Tlist_Auto_Update=1
+"""""""""" NERDtree settings"""""""""""""""
+let NERDTreeWinPos='right'
+"""""""""" mini buffer navigator"""""""""""
+""let g:miniBUfExplMapWindowNavVim=1
+""let g:miniBufExplMapWindowNavArrows=1
+""let g:miniBufExplMapCTabSwitchBufs=1
+""let g:miniBufExplModSelTarget=1 
+""let g:miniBufExplUseSingleClick=1
+
+""""""""""""ctags settings"""""""""""""""""
+set tags+=~/.vim/cpptags
+set tags+=~/.vim/systags
+
+"""""""""""color scheme""""""""""""""""""""
+
+""""""""""""vundle"""""""""""""""""""""""""
+   
+" let Vundle manage Vundle
+" required! 
+""""""""git repo"""""""""""""""
+
+""""""""""syntastic""""""""""""
+let g:syntastic_check_on_open = 1
+let g:syntastic_cpp_include_dirs = ['/usr/include/']
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = '-std=c++11 -stdlib=libstdc++'
+"set error or warning signs
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+"whether to show balloons
+let g:syntastic_enable_balloons = 1
+
+""""""""""""YCM""""""""""""""""""""
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax = 1
+let g:ycm_confirm_extra_conf = 0
